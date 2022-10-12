@@ -18,14 +18,14 @@ public class CameraManager : MonoBehaviour
     public float cameraCollisionOffSet = 0.2f;  //How much the camera will jump off of objects its colliding with
     public float minimumCollisionOffSet = 0.2f;
     public float cameraCollisionRadius = 2;
-    public float cameraFollowSpeed = 0.2f;
+    public float cameraFollowSpeed = 0.1f;
     public float cameraLookSpeed = 2;
     public float cameraPivotSpeed = 2;
 
     public float lookAngle; //Camera looking up and down
     public float pivotAngle;    //Camera looking left and right
-    public float minimumPivotAngle = -35;
-    public float maximumPivotAngle = 35;
+    public float minimumPivotAngle = -45;
+    public float maximumPivotAngle = 45;
 
     private void Awake()
     {

@@ -13,7 +13,7 @@ public class PlayerLocomotion : MonoBehaviour {
     [Header("Falling")]
     public float inAirTimer;
     [SerializeField] private float leapingVelocity = 2.5f;
-    [SerializeField] private float fallingVelocity = 25f;
+    [SerializeField] private float fallingVelocity = 35f;
     [SerializeField] private float rayCastHeightOffSet = 0.5f;
     [SerializeField] private LayerMask groundLayer;
 
@@ -24,9 +24,9 @@ public class PlayerLocomotion : MonoBehaviour {
 
     [Header("Movement Speeds")]
     [SerializeField] private float walkingSpeed = 1.5f;
-    [SerializeField] private float runningSpeed = 4f;
-    [SerializeField] private float sprintingSpeed = 7f;
-    [SerializeField] private float rotationSpeed = 15f;
+    [SerializeField] private float runningSpeed = 5f;
+    [SerializeField] private float sprintingSpeed = 10f;
+    [SerializeField] private float rotationSpeed = 10f;
 
     [Header("Jump Speeds")]
     [SerializeField] private float gravityIntensity = -10f;
@@ -156,7 +156,7 @@ public class PlayerLocomotion : MonoBehaviour {
         if ( isGrounded )
         {
             animatorManager.animator.SetBool("IsJumping", true);
-            animatorManager.PlayTargetAnimation("[Airborne] Jumping Root", false);
+            animatorManager.PlayTargetAnimation("[Airborne] Jumping Root", true);
 
             float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
             Vector3 playerVelocity = moveDirection;

@@ -3642,7 +3642,7 @@ Animator:
   m_GameObject: {fileID: 2954915583600845422}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8710ef598a7ce472788bed7070bd7e77, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5cfae491b21ea47fe916c35d1751af39, type: 2}
+  m_Controller: {fileID: 9100000, guid: 943f602919dc048cc9a551d273f8402c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5595,7 +5595,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &8057916934052953137
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5607,7 +5607,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.15
-  m_Height: 2
+  m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &8057916934052953141
@@ -5661,7 +5661,7 @@ MonoBehaviour:
   playerRigidbody: {fileID: 0}
   inAirTimer: 0
   leapingVelocity: 2.5
-  fallingVelocity: 50
+  fallingVelocity: 35
   rayCastHeightOffSet: 0.5
   groundLayer:
     serializedVersion: 2
@@ -5670,9 +5670,9 @@ MonoBehaviour:
   isGrounded: 0
   isJumping: 0
   walkingSpeed: 1.5
-  runningSpeed: 4
-  sprintingSpeed: 7
-  rotationSpeed: 15
+  runningSpeed: 5
+  sprintingSpeed: 10
+  rotationSpeed: 10
   gravityIntensity: -10
   jumpHeight: 2
 --- !u!1 &8165589426251345981
