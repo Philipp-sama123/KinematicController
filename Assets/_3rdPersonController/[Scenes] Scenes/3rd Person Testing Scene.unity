@@ -1452,6 +1452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[Camera] 3rd Person MainCamera'
       objectReference: {fileID: 0}
+    - target: {fileID: 343030572224251912, guid: 642cb9fd503044eb1926f7c0ad3e3cf0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 642cb9fd503044eb1926f7c0ad3e3cf0, type: 3}
 --- !u!1001 &8057916933290379861
@@ -1508,6 +1512,10 @@ PrefabInstance:
     - target: {fileID: 8057916934052953140, guid: ec09e7bbe058641e5a9ccbf84cc304fd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057916934052953143, guid: ec09e7bbe058641e5a9ccbf84cc304fd, type: 3}
+      propertyPath: jumpHeight
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec09e7bbe058641e5a9ccbf84cc304fd, type: 3}

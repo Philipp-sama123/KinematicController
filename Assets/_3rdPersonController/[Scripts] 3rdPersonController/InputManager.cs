@@ -58,7 +58,7 @@ public class InputManager : MonoBehaviour {
     {
         HandleMovementInput();
         HandleSprintingInput();
-        HandleJumpingnput();
+        HandleJumpingInput();
         HandleDodgeInput();
     }
 
@@ -86,7 +86,7 @@ public class InputManager : MonoBehaviour {
         }
     }
 
-    private void HandleJumpingnput()
+    private void HandleJumpingInput()
     {
         if ( jumpInput == true )
         {

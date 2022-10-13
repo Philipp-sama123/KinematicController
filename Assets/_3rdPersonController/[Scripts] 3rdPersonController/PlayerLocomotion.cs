@@ -165,11 +165,12 @@ public class PlayerLocomotion : MonoBehaviour {
         }
     }
 
-    public void HandleDodge()
-    {
-        if ( playerManager.isInteracting ) return;
 
-        animatorManager.PlayTargetAnimation("[Common] Dodge", true, true);
-        // Todo: Toggle invulnerable State
+    public void HandleDodge()
+        {
+            if ( playerManager.isInteracting ) return;
+
+            animatorManager.PlayTargetAnimation("[Common] Dodge", true, true);
+            // Todo: Toggle invulnerable State
+        }
     }
-}
