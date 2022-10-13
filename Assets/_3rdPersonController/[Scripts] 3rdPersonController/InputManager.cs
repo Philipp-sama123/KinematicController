@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour {
@@ -22,8 +19,19 @@ public class InputManager : MonoBehaviour {
     public bool jumpInput;
     public bool dodgeInput;
 
+    // todo: add flags for jumping and dodging
+    
+    // public bool rollFlag;
+    // public bool twoHandFlag;
+    // public bool sprintFlag;
+    // public bool comboFlag;
+    // public bool inventoryFlag;
+    //
+    // public bool lockOnFlag;
+
     private void Awake()
     {
+        // todo: just import player manager
         animatorManager = GetComponentInChildren<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
     }
@@ -70,6 +78,7 @@ public class InputManager : MonoBehaviour {
         cameraInputY = cameraInput.y;
         cameraInputX = cameraInput.x;
 
+        // todo move to player locomotion
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
         animatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.isSprinting);
     }
@@ -91,6 +100,7 @@ public class InputManager : MonoBehaviour {
         if ( jumpInput == true )
         {
             jumpInput = false;
+            // todo make jumping flag -> then handle in Player Manager
             playerLocomotion.HandleJumping();
         }
     }
@@ -100,6 +110,9 @@ public class InputManager : MonoBehaviour {
         if ( dodgeInput == true )
         {
             dodgeInput = false;
+            // todo make as in dark souls game inputHandler.rollFlag = false;
+            // todo make dodging flag -> then handle in Player Manager
+
             playerLocomotion.HandleDodge();
         }
     }

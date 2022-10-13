@@ -76,7 +76,7 @@ public class AnimatorManager : MonoBehaviour {
         if ( isSprinting )
         {
             snappedVertical = 2;
-            snappedHorizontal = 2;
+            // snappedHorizontal = 2;
         }
 
         animator.SetFloat(Horizontal, snappedHorizontal, 0.1f, Time.deltaTime);

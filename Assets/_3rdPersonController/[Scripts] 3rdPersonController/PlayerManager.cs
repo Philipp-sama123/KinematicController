@@ -26,6 +26,9 @@ public class PlayerManager : MonoBehaviour {
     private void Update()
     {
         inputManager.HandleAllInputs();
+        // playerLocomotion.HandleRollingAndSprinting(deltaTime); -- maybe root motion movememnt here 
+        // playerLocomotion.HandleJumping(); // playerLocomotion.HandleJumping();
+
     }
 
     // When you do stuff with a Rigidbody - everything runs much smoother and nicer with fixed Update 
@@ -38,11 +41,14 @@ public class PlayerManager : MonoBehaviour {
 
     private void LateUpdate()
     {
-        cameraManager.HandleAllCameraMovement();
+        float deltaTime = Time.deltaTime;
+        
+        if ( cameraManager != null )
+            cameraManager.HandleAllCameraMovement(deltaTime, inputManager.cameraInputX, inputManager.cameraInputY);
+        else Debug.LogWarning("[Error] No Camera found!");
 
         isInteracting = animatorManager.animator.GetBool("IsInteracting");
         isUsingRootMotion = animatorManager.animator.GetBool("IsUsingRootMotion");
-
         playerLocomotion.isJumping = animatorManager.animator.GetBool("IsJumping"); // disable Jumping when it was played - on the animation
 
         animatorManager.animator.SetBool("IsGrounded", playerLocomotion.isGrounded); // Animation transition

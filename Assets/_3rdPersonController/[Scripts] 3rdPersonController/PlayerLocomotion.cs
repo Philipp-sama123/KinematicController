@@ -163,14 +163,22 @@ public class PlayerLocomotion : MonoBehaviour {
             playerVelocity.y = jumpingVelocity;
             playerRigidbody.velocity = playerVelocity;
         }
+        
+        // Todo: Running Jump
+        // Todo: Standing Jump
     }
 
 
     public void HandleDodge()
-        {
-            if ( playerManager.isInteracting ) return;
-
-            animatorManager.PlayTargetAnimation("[Common] Dodge", true, true);
-            // Todo: Toggle invulnerable State
-        }
+    {
+        if ( playerManager.isInteracting ) return;
+        
+        if ( inputManager.moveAmount > 0 )
+            animatorManager.PlayTargetAnimation("[Airborne] StepSlide Forward", true, true);
+        else
+            animatorManager.PlayTargetAnimation("[Airborne] StepSlide Backward", true, true);
+        
+        // Todo: Left and Right
+        // Todo: Toggle invulnerable State
     }
+}
