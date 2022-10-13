@@ -587,7 +587,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1512252436467245190}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.09329257
   m_Height: 0.33098474
   m_Direction: 0
@@ -3868,7 +3868,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3528338368105221760}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.10176318
   m_Height: 0.43846568
   m_Direction: 0
@@ -4135,7 +4135,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3841298804543229701}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.10764765
   m_Height: 0.4761836
   m_Direction: 0
@@ -5607,7 +5607,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.1
-  m_Height: 1.75
+  m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &8057916934052953141
@@ -5644,8 +5644,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8228d53aed54c4e5a9b69bdd4c495e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInteracting: 0
   isUsingRootMotion: 0
+  isInteracting: 0
+  isJumping: 0
+  isSprinting: 0
+  isGrounded: 0
+  isInAir: 0
+  canDoCombo: 0
+  isUsingRightHand: 0
+  isUsingLeftHand: 0
+  isInvulnerable: 0
 --- !u!114 &8057916934052953143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5663,15 +5671,13 @@ MonoBehaviour:
   leapingVelocity: 2.5
   fallingVelocity: 35
   rayCastHeightOffSet: 0.5
+  minimumDistanceNeededToBeginFall: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 257
-  isSprinting: 0
-  isGrounded: 0
-  isJumping: 0
   walkingSpeed: 1.5
   runningSpeed: 5
-  sprintingSpeed: 10
+  sprintingSpeed: 8
   rotationSpeed: 10
   gravityIntensity: -10
   jumpHeight: 3
@@ -24629,7 +24635,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8755045275925423875}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.09697996
   m_Height: 0.40209553
   m_Direction: 2

@@ -4,8 +4,8 @@ public class AnimatorManager : MonoBehaviour {
     public Animator animator;
 
     private PlayerManager playerManager;
-    private PlayerLocomotion playerLocomotion;
-
+    private Rigidbody playerRigidbody;
+    
     private int Vertical;
     private int Horizontal;
 
@@ -14,7 +14,7 @@ public class AnimatorManager : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         playerManager = GetComponentInParent<PlayerManager>();
-        playerLocomotion = GetComponentInParent<PlayerLocomotion>();
+        playerRigidbody = GetComponentInParent<Rigidbody>();
 
         Horizontal = Animator.StringToHash("Horizontal");
         Vertical = Animator.StringToHash("Vertical");
@@ -95,14 +95,14 @@ public class AnimatorManager : MonoBehaviour {
     {
         if ( playerManager.isUsingRootMotion )
         {
-            playerLocomotion.playerRigidbody.drag = 0;
+            playerRigidbody.drag = 0;
             Vector3 deltaPosition = animator.deltaPosition;
 
             // Todo: change for Animations where you wanna Jump
             deltaPosition.y = 0;
 
             Vector3 velocity = deltaPosition / Time.deltaTime;
-            playerLocomotion.playerRigidbody.velocity = velocity;
+            playerRigidbody.velocity = velocity;
 
         }
     }

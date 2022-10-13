@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour {
     private ThirdPersonControls playerControls;
-    private PlayerLocomotion playerLocomotion;
-    private AnimatorManager animatorManager;
+    private PlayerManager playerManager;
 
     public Vector2 movementInput;
     public float horizontalInput;
@@ -19,21 +18,10 @@ public class InputManager : MonoBehaviour {
     public bool jumpInput;
     public bool dodgeInput;
 
-    // todo: add flags for jumping and dodging
-    
-    // public bool rollFlag;
-    // public bool twoHandFlag;
-    // public bool sprintFlag;
-    // public bool comboFlag;
-    // public bool inventoryFlag;
-    //
-    // public bool lockOnFlag;
-
     private void Awake()
     {
         // todo: just import player manager
-        animatorManager = GetComponentInChildren<AnimatorManager>();
-        playerLocomotion = GetComponent<PlayerLocomotion>();
+        playerManager = GetComponent<PlayerManager>();
     }
 
     private void OnEnable()
@@ -51,8 +39,6 @@ public class InputManager : MonoBehaviour {
             // when you press the button --> True
             playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
-
-
         }
         playerControls.Enable();
     }
@@ -66,8 +52,6 @@ public class InputManager : MonoBehaviour {
     {
         HandleMovementInput();
         HandleSprintingInput();
-        HandleJumpingInput();
-        HandleDodgeInput();
     }
 
     private void HandleMovementInput()
@@ -78,43 +62,18 @@ public class InputManager : MonoBehaviour {
         cameraInputY = cameraInput.y;
         cameraInputX = cameraInput.x;
 
-        // todo move to player locomotion
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-        animatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.isSprinting);
     }
 
     private void HandleSprintingInput()
     {
         if ( sprintInput && moveAmount > 0.5f )
         {
-            playerLocomotion.isSprinting = true;
+            playerManager.isSprinting = true;
         }
         else
         {
-            playerLocomotion.isSprinting = false;
+            playerManager.isSprinting = false;
         }
     }
-
-    private void HandleJumpingInput()
-    {
-        if ( jumpInput == true )
-        {
-            jumpInput = false;
-            // todo make jumping flag -> then handle in Player Manager
-            playerLocomotion.HandleJumping();
-        }
-    }
-
-    private void HandleDodgeInput()
-    {
-        if ( dodgeInput == true )
-        {
-            dodgeInput = false;
-            // todo make as in dark souls game inputHandler.rollFlag = false;
-            // todo make dodging flag -> then handle in Player Manager
-
-            playerLocomotion.HandleDodge();
-        }
-    }
-
 }
