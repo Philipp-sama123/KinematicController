@@ -45,18 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564d62d584a3d4ef18880c50f7935502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
-  cameraPivot: {fileID: 343030572224251912}
+  cameraPivotTransform: {fileID: 343030572224251912}
   cameraTransform: {fileID: 343030571010347052}
   collisionLayers:
     serializedVersion: 2
     m_Bits: 1809
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 0
   cameraCollisionOffSet: 0.2
   minimumCollisionOffSet: 0.2
   cameraCollisionRadius: 2
   cameraFollowSpeed: 0.2
-  cameraLookSpeed: 0.1
-  cameraPivotSpeed: 0.1
+  cameraLookSpeed: 0.5
+  cameraPivotSpeed: 0.25
   lookAngle: 0
   pivotAngle: 0
   minimumPivotAngle: -45
