@@ -2577,17 +2577,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3572142120071129020, guid: ec09e7bbe058641e5a9ccbf84cc304fd, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 943f602919dc048cc9a551d273f8402c, type: 2}
     - target: {fileID: 8057916934052953098, guid: ec09e7bbe058641e5a9ccbf84cc304fd, type: 3}
       propertyPath: m_Name
       value: '[Player] 3rd Person MainPlayer'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8057916934052953137, guid: ec09e7bbe058641e5a9ccbf84cc304fd, type: 3}
-      propertyPath: m_Radius
-      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8057916934052953140, guid: ec09e7bbe058641e5a9ccbf84cc304fd, type: 3}
       propertyPath: m_RootOrder

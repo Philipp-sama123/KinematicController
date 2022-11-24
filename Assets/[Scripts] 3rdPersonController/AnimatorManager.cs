@@ -6,7 +6,7 @@ public class AnimatorManager : MonoBehaviour {
 
     private PlayerManager playerManager;
     private Rigidbody playerRigidbody;
-    
+
     private int Vertical;
     private int Horizontal;
 
@@ -14,8 +14,8 @@ public class AnimatorManager : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
 
-        playerManager = GetComponentInParent<PlayerManager>();
-        playerRigidbody = GetComponentInParent<Rigidbody>();
+        playerManager = GetComponent<PlayerManager>();
+        playerRigidbody = GetComponent<Rigidbody>();
 
         Horizontal = Animator.StringToHash("Horizontal");
         Vertical = Animator.StringToHash("Vertical");
@@ -89,22 +89,5 @@ public class AnimatorManager : MonoBehaviour {
         animator.SetBool("IsInteracting", isInteracting);
         animator.SetBool("IsUsingRootMotion", useRootMotion);
         animator.CrossFade(targetAnimation, 0.2f);
-    }
-
-    // checks every Frame Animation is played
-    private void OnAnimatorMove()
-    {
-        if ( playerManager.isUsingRootMotion )
-        {
-            playerRigidbody.drag = 0;
-            Vector3 deltaPosition = animator.deltaPosition;
-
-            // Todo: change for Animations where you wanna Jump
-            deltaPosition.y = 0;
-
-            Vector3 velocity = deltaPosition / Time.deltaTime;
-            playerRigidbody.velocity = velocity;
-
-        }
     }
 }
