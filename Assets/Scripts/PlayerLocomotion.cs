@@ -1,18 +1,17 @@
-using _Scripts__3rdPersonController;
 using UnityEngine;
 
 public class PlayerLocomotion : MonoBehaviour {
 
-    private PlayerManager _playerManager;
     private AnimatorManager _animatorManager;
+    private PlayerManager _playerManager;
     private InputManager _inputManager;
-
-    private Vector3 _moveDirection;
-    private Camera mainCamera;
+    
     public Rigidbody playerRigidbody;
 
+    private Vector3 _moveDirection;
+    private Camera _mainCamera;
+
     [Header("Falling")]
-    public float inAirTimer;
     [SerializeField] private float leapingVelocity = 2.5f;
     [SerializeField] private float fallingVelocity = 35f;
     [SerializeField] private float rayCastHeightOffSet = 0.5f;
@@ -31,48 +30,49 @@ public class PlayerLocomotion : MonoBehaviour {
 
     private void Awake()
     {
-        if ( Camera.main != null ) mainCamera = Camera.main;
+        if ( Camera.main != null ) _mainCamera = Camera.main;
         else Debug.LogWarning("[Not Assigned]: Camera");
+
+        _animatorManager = GetComponentInChildren<AnimatorManager>();
 
         _playerManager = GetComponent<PlayerManager>();
         _inputManager = GetComponent<InputManager>();
         playerRigidbody = GetComponent<Rigidbody>();
-
-        _animatorManager = GetComponentInChildren<AnimatorManager>();
     }
 
 
 
     public void HandleMovement()
     {
-        Debug.LogWarning("[ToDO]:HandleMovement ");
+        Transform currentTransform = transform;
+        Vector3 positionToMove = Vector3.zero;
+        Vector3 horizontalMovement = currentTransform.right * _inputManager.horizontalInput * Time.fixedDeltaTime;
+        Vector3 verticalMovement = currentTransform.forward * _inputManager.verticalInput * Time.fixedDeltaTime;
 
-        var myTransform = transform;
-        var positionToMove = myTransform.position +
-                             myTransform.right * (_inputManager.horizontalInput * Time.fixedDeltaTime * runningSpeed) +
-                             myTransform.forward * (_inputManager.verticalInput * Time.fixedDeltaTime * runningSpeed);
-
-        if ( _playerManager.isSprinting )
+        if ( _playerManager.isSprinting == false )
         {
-            positionToMove = myTransform.position +
-                             myTransform.right * (_inputManager.horizontalInput * Time.fixedDeltaTime * runningSpeed) +
-                             myTransform.forward * (_inputManager.verticalInput * Time.fixedDeltaTime * sprintingSpeed);
+            horizontalMovement *= runningSpeed;
+            verticalMovement *= runningSpeed;
+        }
+        else
+        {
+            horizontalMovement = Vector3.zero;
+            verticalMovement *= sprintingSpeed;
         }
 
+        positionToMove = currentTransform.position + horizontalMovement + verticalMovement;
         positionToMove.y = 0;
 
-        _animatorManager.UpdateAnimatorValues(_inputManager.horizontalInput, _inputManager.verticalInput, _playerManager.isSprinting);
-
         playerRigidbody.MovePosition(positionToMove);
-
+        _animatorManager.UpdateAnimatorValues(_inputManager.horizontalInput, _inputManager.verticalInput, _playerManager.isSprinting);
     }
 
     public void HandleRotation()
     {
         if ( _inputManager.horizontalInput != 0 || (_inputManager.verticalInput < 0) ) return;
 
-        Vector3 targetDirection = mainCamera.transform.forward * _inputManager.verticalInput;
-        targetDirection += mainCamera.gameObject.transform.right * _inputManager.horizontalInput;
+        Vector3 targetDirection = _mainCamera.transform.forward * _inputManager.verticalInput;
+        targetDirection += _mainCamera.gameObject.transform.right * _inputManager.horizontalInput;
         targetDirection.Normalize();
         targetDirection.y = 0;
 
@@ -86,8 +86,6 @@ public class PlayerLocomotion : MonoBehaviour {
 
     }
 
-
-
     private void HandleFalling()
     {
         Debug.LogWarning("[ToDO]: HandleFalling");
@@ -96,7 +94,14 @@ public class PlayerLocomotion : MonoBehaviour {
 
     public void HandleJumping()
     {
-        Debug.LogWarning("[ToDO]: HandleJumping");
+        if ( _inputManager.jumpInput )
+        {
+            _animatorManager.PlayTargetAnimation("JumpFull", true);
+            Debug.LogWarning("[ToDO]: HandleJumping properly.");
+            // Vector3 currentPosition = transform.up;
+            // currentPosition *= _animatorManager.animator.pivotPosition.y; 
+            // playerRigidbody.MovePosition(currentPosition);
+        }
     }
 
 

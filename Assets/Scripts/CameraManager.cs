@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using _Scripts__3rdPersonController;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour {

@@ -1,4 +1,3 @@
-using _Scripts__3rdPersonController;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour {
@@ -13,8 +12,6 @@ public class InputManager : MonoBehaviour {
     public Vector2 cameraInput;
     public float cameraInputX;
     public float cameraInputY;
-
-    public float moveAmount;
 
     public bool sprintInput;
     public bool jumpInput;
@@ -47,6 +44,8 @@ public class InputManager : MonoBehaviour {
             _playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
             // when you press the button --> True
             _playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+            _playerControls.PlayerActions.Jump.canceled += i => jumpInput = false;
+            
             _playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
         }
         _playerControls.Enable();
@@ -70,13 +69,11 @@ public class InputManager : MonoBehaviour {
 
         cameraInputY = cameraInput.y;
         cameraInputX = cameraInput.x;
-
-        moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
     }
 
     private void HandleSprintingInput()
     {
-        if ( sprintInput && moveAmount > 0.5f )
+        if ( sprintInput && verticalInput > 0.5f )
         {
             _playerManager.isSprinting = true;
         }

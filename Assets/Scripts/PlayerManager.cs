@@ -1,4 +1,3 @@
-using _Scripts__3rdPersonController;
 using UnityEngine;
 
 // calls and runs everything 
@@ -10,10 +9,9 @@ public class PlayerManager : CharacterManager {
     private AnimatorManager _animatorManager;
     private PlayerLocomotion _playerLocomotion;
 
-    public bool isUsingRootMotion = false;
 
     [Header("Player Flags")]
-    public bool isInteracting = false;
+    public bool isUsingRootMotion = false;
     public bool isJumping = false;
     public bool isSprinting;
     public bool isGrounded;
@@ -34,7 +32,8 @@ public class PlayerManager : CharacterManager {
     private void Update()
     {
         _inputManager.HandleAllInputs();
-
+        isUsingRootMotion = _animatorManager.animator.GetBool(_animatorManager.isUsingRootMotion);
+        _playerLocomotion.HandleJumping();
 
     }
 
