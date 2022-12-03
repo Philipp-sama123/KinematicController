@@ -13,9 +13,8 @@ public class AnimatorManager : MonoBehaviour {
     private void Awake()
     {
         animator = GetComponent<Animator>();
-
-        _playerManager = GetComponentInParent<PlayerManager>();
-        _playerLocomotion = GetComponentInParent<PlayerLocomotion>();
+        _playerManager = GetComponent<PlayerManager>();
+        _playerLocomotion = GetComponent<PlayerLocomotion>();
     }
 
     public void UpdateAnimatorValues(float horizontalMovement, float verticalMovement, bool isSprinting)
@@ -32,10 +31,17 @@ public class AnimatorManager : MonoBehaviour {
 
     private void OnAnimatorMove()
     {
-        if ( _playerManager.isUsingRootMotion )
-        {
-            Debug.Log("Animator Move: " + animator.pivotPosition);
-            _playerLocomotion.playerRigidbody.MovePosition(transform.position + animator.pivotPosition* 100);
-        }
+        if ( _playerManager.isUsingRootMotion == false )
+            return;
+
+        float delta = Time.deltaTime;
+        Vector3 deltaPosition = animator.deltaPosition;
+        Vector3 velocity = deltaPosition / delta;
+        _playerLocomotion.rigidbody.drag = 0;
+
+        Debug.LogWarning("[Rigidbody] Applied Velocity on using root Motion:" + velocity);
+
+        _playerLocomotion.rigidbody.velocity = velocity;
     }
+
 }

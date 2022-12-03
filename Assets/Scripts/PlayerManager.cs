@@ -25,34 +25,44 @@ public class PlayerManager : CharacterManager {
     {
         _inputManager = GetComponent<InputManager>();
         _playerLocomotion = GetComponent<PlayerLocomotion>();
-        _animatorManager = GetComponentInChildren<AnimatorManager>();
+        _animatorManager = GetComponent<AnimatorManager>();
+
         _cameraManager = FindObjectOfType<CameraManager>();
     }
 
     private void Update()
     {
-        _inputManager.HandleAllInputs();
-        isUsingRootMotion = _animatorManager.animator.GetBool(_animatorManager.isUsingRootMotion);
+        float deltaTime =Time.deltaTime;
+        _inputManager.HandleAllInputs(deltaTime);
+        
         _playerLocomotion.HandleJumping();
+        _playerLocomotion.CheckIfGrounded();
+        _playerLocomotion.HandleRollingAndSprinting(); // ToDo: really? 
+        
+        isUsingRootMotion = _animatorManager.animator.GetBool(_animatorManager.isUsingRootMotion);
 
     }
 
     private void FixedUpdate()
     {
+        float deltaTime = Time.deltaTime;
+        
+        _playerLocomotion.HandleFalling();
         _playerLocomotion.HandleMovement();
-        _playerLocomotion.HandleRotation();
+        
+        _playerLocomotion.HandleRotation(deltaTime);
 
     }
 
     private void LateUpdate()
     {
-
         float deltaTime = Time.deltaTime;
 
         if ( _cameraManager != null )
             _cameraManager.HandleAllCameraMovement(deltaTime, _inputManager.cameraInputX, _inputManager.cameraInputY);
         else Debug.LogWarning("[Error] No Camera found!");
-
+        
+        _inputManager.dodgeFlag = false;
 
     }
 }

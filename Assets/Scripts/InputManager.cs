@@ -4,18 +4,24 @@ public class InputManager : MonoBehaviour {
     private ThirdPersonControls _playerControls;
     private PlayerManager _playerManager;
     private CameraManager _cameraManager;
-
+    
+    [Header("Movement")]
     public Vector2 movementInput;
     public float horizontalInput;
     public float verticalInput;
+    public float moveAmount;
 
+    [Header("Camera")]
     public Vector2 cameraInput;
     public float cameraInputX;
     public float cameraInputY;
 
-    public bool sprintInput;
+    [Header("Jump and Dodge")]
+    public bool dodgeAndSprintInput;
     public bool jumpInput;
-    public bool dodgeInput;
+    public bool sprintFlag;
+    public bool dodgeFlag;
+    public float rollInputTimer;
 
     /** Lock On **/
     public bool lockOnInput;
@@ -25,7 +31,6 @@ public class InputManager : MonoBehaviour {
 
     private void Awake()
     {
-        // todo: just import player manager
         _playerManager = GetComponent<PlayerManager>();
         _cameraManager = FindObjectOfType<CameraManager>();
     }
@@ -40,13 +45,11 @@ public class InputManager : MonoBehaviour {
             _playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
 
             // while you hold it --> true!
-            _playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
-            _playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
+            _playerControls.PlayerActions.Sprint.performed += i => dodgeAndSprintInput = true;
+            _playerControls.PlayerActions.Sprint.canceled += i => dodgeAndSprintInput = false;
             // when you press the button --> True
             _playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
             _playerControls.PlayerActions.Jump.canceled += i => jumpInput = false;
-            
-            _playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
         }
         _playerControls.Enable();
     }
@@ -56,10 +59,10 @@ public class InputManager : MonoBehaviour {
         _playerControls.Disable();
     }
 
-    public void HandleAllInputs()
+    public void HandleAllInputs(float deltaTime)
     {
         HandleMovementInput();
-        HandleSprintingInput();
+        HandleRollAndSprintInput(deltaTime);
     }
 
     private void HandleMovementInput()
@@ -69,17 +72,44 @@ public class InputManager : MonoBehaviour {
 
         cameraInputY = cameraInput.y;
         cameraInputX = cameraInput.x;
+
+        moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
+
     }
 
-    private void HandleSprintingInput()
+    private void HandleRollAndSprintInput(float deltaTime)
     {
-        if ( sprintInput && verticalInput > 0.5f )
+        if ( dodgeAndSprintInput )
         {
-            _playerManager.isSprinting = true;
+            rollInputTimer += deltaTime;
+            // if ( playerStats.currentStamina <= 0 )
+            // {
+            // dodgeAndSprintInput = false;
+            // sprintFlag = false;
+            // }
+
+            if ( moveAmount > 0.5f /*&& playerStats.currentStamina > 0*/ )
+            {
+                sprintFlag = true;
+            }
         }
         else
         {
-            _playerManager.isSprinting = false;
+            sprintFlag = false;
+            if ( rollInputTimer > 0 && rollInputTimer < 0.5f )
+            {
+                dodgeFlag = true;
+            }
+            rollInputTimer = 0;
         }
+
+        // if ( dodgeAndSprintInput && verticalInput > 0.5f )
+        // {
+        //     _playerManager.isSprinting = true;
+        // }
+        // else
+        // {
+        //     _playerManager.isSprinting = false;
+        // }
     }
 }
